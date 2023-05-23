@@ -14,9 +14,10 @@ Pod::Spec.new do |s|
   s.source       = { :git => package['repository']['url'] }
   s.source_files = '**/*.{h,m}'
   s.resource_bundles = {
-    'react-native-baidumap-sdk' => 'Resources/*.{png}',
+    'React-native-baidumap-sdk-fg' => 'Resources/*.{png}',
   }
 
   s.dependency 'React'
   s.dependency 'BaiduMapKit', "~> 6.0.0"
+  S.dependency 'BMKLocationKit'
 end
