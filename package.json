@@ -1,5 +1,5 @@
 {
-  "name": "react-native-baidumap-sdk",
+  "name": "react-native-baidumap-sdk-fg",
   "description": "React Native BaiduMap SDK for Android + iOS",
   "keywords": [
     "react-native",
@@ -8,7 +8,7 @@
     "location",
     "baidumap"
   ],
-  "version": "0.7.0",
+  "version": "0.7.5",
   "author": "7c00 <i@7c00.cc>",
   "repository": {
     "type": "git",
