@@ -11,7 +11,9 @@
     _polyline = [BMKPolyline new];
     _polylineView = [[BMKPolylineView alloc] initWithPolyline:_polyline];
     _polylineView.strokeColor = UIColor.redColor;
-    _polylineView.lineWidth = 1;
+    _polylineView.lineWidth = 2;
+//    //圆点虚线，V5.0.0新增
+//      _polylineView.lineDashType = kBMKLineDashTypeDot;
     self = [super init];
     return self;
 }
@@ -22,6 +24,7 @@
         coordinates[i] = points[i].coordinate;
     }
     [_polyline setPolylineWithCoordinates:coordinates count:points.count];
+    [self.mapView addOverlay:_polyline];
     self.mapView.centerCoordinate = self.mapView.centerCoordinate;
 }
 
