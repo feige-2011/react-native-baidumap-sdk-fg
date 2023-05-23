@@ -19,5 +19,5 @@ Pod::Spec.new do |s|
 
   s.dependency 'React'
   s.dependency 'BaiduMapKit', "~> 6.0.0"
-  S.dependency 'BMKLocationKit'
+  s.dependency 'BMKLocationKit'
 end
