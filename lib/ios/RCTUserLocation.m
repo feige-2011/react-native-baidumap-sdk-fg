@@ -15,6 +15,7 @@
 }
 
 - (id)json {
+    
     return @{
         @"latitude": @(location.coordinate.latitude),
         @"longitude": @(location.coordinate.longitude),

@@ -20,6 +20,8 @@ RCT_REMAP_METHOD(init, key:(NSString *)key resolver:(RCTPromiseResolveBlock)reso
     _resolve = resolve;
     _reject = reject;
     [_manager start:key generalDelegate:self];
+    //设置为GCJ02坐标
+    [BMKMapManager setCoordinateTypeUsedInBaiduMapSDK: BMK_COORDTYPE_COMMON];
 }
 
 - (void)onGetPermissionState:(int)error {
