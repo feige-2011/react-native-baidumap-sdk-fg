@@ -8,7 +8,7 @@
     "location",
     "baidumap"
   ],
-  "version": "0.8.7",
+  "version": "0.8.8",
   "author": "7c00 <i@7c00.cc>",
   "repository": {
     "type": "git",
@@ -43,12 +43,12 @@
     "@react-navigation/stack": "^5.5.1",
     "@types/react-native": "^0.62.13",
     "EventEmitter": "^1.0.0",
-    "react": "16.13.1",
-    "react-native": "^0.62.2",
-    "react-native-gesture-handler": "^1.6.1",
-    "react-native-reanimated": "^1.9.0",
-    "react-native-safe-area-context": "^3.0.3",
-    "react-native-screens": "^2.8.0"
+    "react": "17.0.2",
+    "react-native": "^0.67.3",
+    "react-native-gesture-handler": "^1.8.0",
+    "react-native-reanimated": "^1.7.0",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-screens": "^3.12.0"
   },
   "prettier": {
     "printWidth": 100
