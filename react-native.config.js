@@ -6,7 +6,7 @@ module.exports = {
     }
   },
   dependencies: {
-    "react-native-baidumap-sdk": {
+    "React-native-baidumap-sdk-fg": {
       root: __dirname,
       platforms: {
         ios: { podspecPath: __dirname + "/lib/ios/react-native-baidumap-sdk-fg.podspec" },
