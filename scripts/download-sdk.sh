@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sdk_url="https://lbsyun-baidu.cdn.bcebos.com/online/aar_android/all/normal/v_0.0.69/BaiduLBS_Android_V0.0.69_369101056.zip"
+sdk_url="https://lbsyun-baidu.cdn.bcebos.com/online/jar_android/all/normal/v_0.0.69/BaiduLBS_Android_V0.0.69_369101056.zip"
 curl "$sdk_url" -o sdk.zip
 unzip -o sdk.zip
 rm -r lib/android/libs
