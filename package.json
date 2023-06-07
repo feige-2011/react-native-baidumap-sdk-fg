@@ -20,7 +20,7 @@
     "lib/ios",
     "lib/android/src",
      "lib/android/libs",
-    "lib/android/build.gradle"
+    "lib/android/build.gradle",
      "react-native.config.js"
   ],
   "main": "lib/js",
