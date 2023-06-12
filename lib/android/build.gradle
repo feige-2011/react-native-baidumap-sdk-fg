@@ -40,5 +40,9 @@ dependencies {
     implementation 'com.facebook.react:react-native:+'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
      implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'	
+    implementation 'com.baidu.lbsyun:BaiduMapSDK_Search:7.4.0'
+    implementation 'com.baidu.lbsyun:BaiduMapSDK_Util:7.4.0'
+    implementation 'com.baidu.lbsyun:BaiduMapSDK_Location_All:9.1.8'
+    implementation 'com.baidu.lbsyun:BaiduMapSDK_Map-Navi:7.4.0'
 }
