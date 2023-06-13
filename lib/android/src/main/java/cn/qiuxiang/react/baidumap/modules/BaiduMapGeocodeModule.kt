@@ -5,52 +5,52 @@ import cn.qiuxiang.react.baidumap.toWritableMap
 import com.baidu.mapapi.search.core.SearchResult
 import com.baidu.mapapi.search.geocode.*
 import com.facebook.react.bridge.*
-
+//这个jar包中没有这个，这个功能单独拿出来实现的
 @Suppress("unused")
 class BaiduMapGeocodeModule(context: ReactApplicationContext) : ReactContextBaseJavaModule(context) {
     private var promise: Promise? = null
-    private val geoCoder by lazy {
-        val geoCoder = GeoCoder.newInstance()
-        geoCoder.setOnGetGeoCodeResultListener(object : OnGetGeoCoderResultListener {
-            override fun onGetGeoCodeResult(result: GeoCodeResult?) {
-                if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-                    // TODO: provide error message
-                    promise?.reject("", "")
-                } else {
-                    val data = Arguments.createMap()
-                    data.putString("address", result.address)
-                    data.putDouble("latitude", result.location.latitude)
-                    data.putDouble("longitude", result.location.longitude)
-                    promise?.resolve(data)
-                }
-                promise = null
-            }
-
-            override fun onGetReverseGeoCodeResult(result: ReverseGeoCodeResult?) {
-                if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-                    // TODO: provide error message
-                    promise?.reject("", "")
-                } else {
-                    val data = result.location.toWritableMap()
-                    data.putString("country", result.addressDetail.countryName)
-                    data.putString("countryCode", result.addressDetail.countryCode.toString())
-                    data.putString("province", result.addressDetail.province)
-                    data.putString("city", result.addressDetail.city)
-                    data.putString("cityCode", result.cityCode.toString())
-                    data.putString("district", result.addressDetail.district)
-                    data.putString("street", result.addressDetail.street)
-                    data.putString("streetNumber", result.addressDetail.streetNumber)
-                    data.putString("adCode", result.addressDetail.adcode.toString())
-                    data.putString("businessCircle", result.businessCircle)
-                    data.putString("address", result.address)
-                    data.putString("description", result.sematicDescription)
-                    promise?.resolve(data)
-                }
-                promise = null
-            }
-        })
-        geoCoder
-    }
+//    private val geoCoder by lazy {
+//        val geoCoder = GeoCoder.newInstance()
+//        geoCoder.setOnGetGeoCodeResultListener(object : OnGetGeoCoderResultListener {
+//            override fun onGetGeoCodeResult(result: GeoCodeResult?) {
+//                if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+//                    // TODO: provide error message
+//                    promise?.reject("", "")
+//                } else {
+//                    val data = Arguments.createMap()
+//                    data.putString("address", result.address)
+//                    data.putDouble("latitude", result.location.latitude)
+//                    data.putDouble("longitude", result.location.longitude)
+//                    promise?.resolve(data)
+//                }
+//                promise = null
+//            }
+//
+//            override fun onGetReverseGeoCodeResult(result: ReverseGeoCodeResult?) {
+//                if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+//                    // TODO: provide error message
+//                    promise?.reject("", "")
+//                } else {
+//                    val data = result.location.toWritableMap()
+//                    data.putString("country", result.addressDetail.countryName)
+//                    data.putString("countryCode", result.addressDetail.countryCode.toString())
+//                    data.putString("province", result.addressDetail.province)
+//                    data.putString("city", result.addressDetail.city)
+//                    data.putString("cityCode", result.cityCode.toString())
+//                    data.putString("district", result.addressDetail.district)
+//                    data.putString("street", result.addressDetail.street)
+//                    data.putString("streetNumber", result.addressDetail.streetNumber)
+//                    data.putString("adCode", result.addressDetail.adcode.toString())
+//                    data.putString("businessCircle", result.businessCircle)
+//                    data.putString("address", result.address)
+//                    data.putString("description", result.sematicDescription)
+//                    promise?.resolve(data)
+//                }
+//                promise = null
+//            }
+//        })
+//        geoCoder
+//    }
 
     override fun getName(): String {
         return "BaiduMapGeocode"
@@ -64,7 +64,7 @@ class BaiduMapGeocodeModule(context: ReactApplicationContext) : ReactContextBase
     fun search(address: String, city: String, promise: Promise) {
         if (this.promise == null) {
             this.promise = promise
-            geoCoder.geocode(GeoCodeOption().address(address).city(city))
+//            geoCoder.geocode(GeoCodeOption().address(address).city(city))
         } else {
             promise.reject("", "This callback type only permits a single invocation from native code")
         }
@@ -74,7 +74,7 @@ class BaiduMapGeocodeModule(context: ReactApplicationContext) : ReactContextBase
     fun reverse(coordinate: ReadableMap, promise: Promise) {
         if (this.promise == null) {
             this.promise = promise
-            geoCoder.reverseGeoCode(ReverseGeoCodeOption().location(coordinate.toLatLng()))
+//            geoCoder.reverseGeoCode(ReverseGeoCodeOption().location(coordinate.toLatLng()))
         } else {
             promise.reject("", "This callback type only permits a single invocation from native code")
         }
