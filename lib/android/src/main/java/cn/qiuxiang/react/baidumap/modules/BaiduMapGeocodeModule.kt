@@ -1,56 +1,42 @@
 package cn.qiuxiang.react.baidumap.modules
 
-import cn.qiuxiang.react.baidumap.toLatLng
+import android.widget.Toast
 import cn.qiuxiang.react.baidumap.toWritableMap
 import com.baidu.mapapi.search.core.SearchResult
-import com.baidu.mapapi.search.geocode.*
+import com.baidu.mapapi.search.poi.*
 import com.facebook.react.bridge.*
+import org.json.JSONArray
+
+
+
+
 //这个jar包中没有这个，这个功能单独拿出来实现的
 @Suppress("unused")
 class BaiduMapGeocodeModule(context: ReactApplicationContext) : ReactContextBaseJavaModule(context) {
     private var promise: Promise? = null
-//    private val geoCoder by lazy {
-//        val geoCoder = GeoCoder.newInstance()
-//        geoCoder.setOnGetGeoCodeResultListener(object : OnGetGeoCoderResultListener {
-//            override fun onGetGeoCodeResult(result: GeoCodeResult?) {
-//                if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-//                    // TODO: provide error message
-//                    promise?.reject("", "")
-//                } else {
-//                    val data = Arguments.createMap()
-//                    data.putString("address", result.address)
-//                    data.putDouble("latitude", result.location.latitude)
-//                    data.putDouble("longitude", result.location.longitude)
-//                    promise?.resolve(data)
-//                }
-//                promise = null
-//            }
-//
-//            override fun onGetReverseGeoCodeResult(result: ReverseGeoCodeResult?) {
-//                if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
-//                    // TODO: provide error message
-//                    promise?.reject("", "")
-//                } else {
-//                    val data = result.location.toWritableMap()
-//                    data.putString("country", result.addressDetail.countryName)
-//                    data.putString("countryCode", result.addressDetail.countryCode.toString())
-//                    data.putString("province", result.addressDetail.province)
-//                    data.putString("city", result.addressDetail.city)
-//                    data.putString("cityCode", result.cityCode.toString())
-//                    data.putString("district", result.addressDetail.district)
-//                    data.putString("street", result.addressDetail.street)
-//                    data.putString("streetNumber", result.addressDetail.streetNumber)
-//                    data.putString("adCode", result.addressDetail.adcode.toString())
-//                    data.putString("businessCircle", result.businessCircle)
-//                    data.putString("address", result.address)
-//                    data.putString("description", result.sematicDescription)
-//                    promise?.resolve(data)
-//                }
-//                promise = null
-//            }
-//        })
-//        geoCoder
-//    }
+    private val geoCoder by lazy {
+        val geoCoder = PoiSearch.newInstance();
+        var listener = geoCoder.setOnGetPoiSearchResultListener(
+            object : OnGetPoiSearchResultListener {
+                override fun onGetPoiResult(p0: PoiResult?) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onGetPoiDetailResult(p0: PoiDetailResult?) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onGetPoiDetailResult(p0: PoiDetailSearchResult?) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onGetPoiIndoorResult(p0: PoiIndoorResult?) {
+                    TODO("Not yet implemented")
+                }
+
+            } )
+        geoCoder
+    }
 
     override fun getName(): String {
         return "BaiduMapGeocode"
@@ -61,9 +47,38 @@ class BaiduMapGeocodeModule(context: ReactApplicationContext) : ReactContextBase
     }
 
     @ReactMethod
-    fun search(address: String, city: String, promise: Promise) {
+    fun search( obj:ReadableArray, promise: Promise) {
         if (this.promise == null) {
             this.promise = promise
+            /**
+             *  PoiCiySearchOption 设置检索属性
+             *  city 检索城市
+             *  keyword 检索内容关键字
+             *  pageNum 分页页码
+             */
+            /**
+             * PoiCiySearchOption 设置检索属性
+             * city 检索城市
+             * keyword 检索内容关键字
+             * pageNum 分页页码
+             */
+
+              val array: WritableArray? = Arguments.createArray()
+               var arr: JSONArray? = null
+                arr = JSONArray(obj.toString())
+                val jsonObject = arr!!.optJSONObject(0)
+//        JSONObject jsonObject = new JSONObject(String.valueOf(object));
+                //        JSONObject jsonObject = new JSONObject(String.valueOf(object));
+                val types = jsonObject.getString("types")
+                val keywords = jsonObject.getString("keywords")
+                val city = jsonObject.getString("city")
+                geoCoder.searchInCity(
+                    PoiCitySearchOption()
+                        .city(city) //必填
+                        .keyword(keywords).tag(types).cityLimit(false) //必填
+                        .pageNum(0)
+                )
+
 //            geoCoder.geocode(GeoCodeOption().address(address).city(city))
         } else {
             promise.reject("", "This callback type only permits a single invocation from native code")
@@ -74,6 +89,7 @@ class BaiduMapGeocodeModule(context: ReactApplicationContext) : ReactContextBase
     fun reverse(coordinate: ReadableMap, promise: Promise) {
         if (this.promise == null) {
             this.promise = promise
+            geoCoder.destroy();
 //            geoCoder.reverseGeoCode(ReverseGeoCodeOption().location(coordinate.toLatLng()))
         } else {
             promise.reject("", "This callback type only permits a single invocation from native code")
